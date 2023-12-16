@@ -5,21 +5,27 @@
 <PageTitle>BloggBlazorServer</PageTitle>
 
 <CascadingValue Value="@UserStateService">
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <NavMenu />
+                </div>
+            </nav>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">About</h1>
+                </div>
+
+                <article class="content">
+                    @Body
+                </article>
+            </main>
         </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    </div>
 </CascadingValue>
 
 @code {

@@ -22,25 +22,26 @@
         <div class="navbar-collapse">
             <div class="navbar-nav ml-auto">
                 <EditForm Model="@searchModel" OnValidSubmit="@OnSearch">
-                    <InputText @bind-Value="searchModel.SearchTerm"/>
-                    <button type="submit">Søk</button>
+                    <div class="input-group">
+                        <InputText @bind-Value="searchModel.SearchTerm" class="form-control" placeholder="Search" />
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
                 </EditForm>
             </div>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <span class="oi oi-home" aria-hidden="true"></span> Home
+        </NavLink>
+
         @if (!UserStateService.IsLoggedIn)
         {
-            <div class="nav-item px-3">
+            <div class="nav-item">
                 <NavLink class="nav-link" href="register">
                     <span class="oi oi-pencil" aria-hidden="true"></span> Register
                 </NavLink>
             </div>
-            <div class="nav-item px-3">
+            <div class="nav-item">
                 <NavLink class="nav-link" href="login">
                     <span class="oi oi-account-login" aria-hidden="true"></span> Login
                 </NavLink>
@@ -48,27 +49,26 @@
         }
         else
         {
-
-
-            <div class="nav-item px-3">
+            <div class="nav-item">
                 <NavLink class="nav-link" href="min-blogg">
                     <span class="oi oi-book" aria-hidden="true"></span> Min Blogg
                 </NavLink>
             </div>
-            <div class="nav-item px-3">
+            <div class="nav-item">
                 <NavLink class="nav-link" href="user-List">
                     <span class="oi oi-list-rich" aria-hidden="true"></span> Users
                 </NavLink>
             </div>
-            <div class="nav-item px-3">
+            <div class="nav-item">
                 <NavLink class="nav-link" href="logout">
                     <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
                 </NavLink>
             </div>
-            <NavLink class="nav-link" href="utforsk-blogger">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Utforsk Blogger
-            </NavLink>
-
+            <div class="nav-item">
+                <NavLink class="nav-link" href="utforsk-blogger">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Utforsk Blogger
+                </NavLink>
+            </div>
         }
     </nav>
 </div>
@@ -84,26 +84,21 @@
     }
 }
 
-
 @code {
     private SearchModel searchModel = new SearchModel();
 
     private void OnSearch()
     {
-    // Naviger til omdirigeringssiden med søkeordet
+        // Navigate to the redirection page with the search term
         NavigationManager.NavigateTo($"/redirect?query={searchModel.SearchTerm}");
     }
-
 
     private class SearchModel
     {
         public string SearchTerm { get; set; }
     }
 
-
-
     private SearchResult searchResults;
-
 }
 
 @code {
