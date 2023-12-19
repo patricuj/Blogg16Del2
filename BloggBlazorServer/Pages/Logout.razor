@@ -1,25 +1,32 @@
-﻿@page "/logout"
+﻿@page "/"
 @using BloggBlazorServer.Services
-@inject UserStateService UserStateService
-@inject NavigationManager NavigationManager
 
-<h3>Logout</h3>
+<PageTitle>Velkommen til Min Blogg</PageTitle>
 
-@if (UserStateService.IsLoggedIn)
+<h1>Velkommen til Min Blogg!</h1>
+
+<p>
+    Dette er din egen bloggplattform. Start å skriv og del dine tanker med verden!
+</p>
+
+@if (!UserStateService.IsLoggedIn)
 {
-    <p>Er du sikker på at du vil logge ut?</p>
-    <button class="btn btn-danger" @onclick="LogoutUser">Logg ut</button>
+    <p>
+        Har du ikke en blogg ennå?
+        <button @onclick="GoToRegistrationPage" class="btn btn-primary">Opprett en nå</button>.
+    </p>
 }
-else
-{
-    <p>Du er allerede logget ut.</p>
-    <a href="/">Gå tilbake til startsiden</a>
-}
+
+<p>
+    Utforsk andres blogger og la deg inspirere.
+</p>
 
 @code {
-    private void LogoutUser()
+    [Inject] private NavigationManager Navigation { get; set; }
+    [Inject] private UserStateService UserStateService { get; set; }
+
+    private void GoToRegistrationPage()
     {
-        UserStateService.Logout();
-        NavigationManager.NavigateTo("/");
+        Navigation.NavigateTo("/register");
     }
 }

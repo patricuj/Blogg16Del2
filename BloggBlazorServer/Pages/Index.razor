@@ -1,9 +1,32 @@
 ﻿@page "/"
+@using BloggBlazorServer.Services
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Velkommen til Min Blogg</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Velkommen til Min Blogg!</h1>
 
-Welcome to your new app.
+<p>
+    Dette er din egen bloggplattform. Start å skriv og del dine tanker med verden!
+</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if (!UserStateService.IsLoggedIn)
+{
+    <p>
+        Har du ikke en blogg ennå?
+        <button @onclick="GoToRegistrationPage" class="btn btn-primary">Opprett en nå</button>.
+    </p>
+}
+
+<p>
+    Utforsk andres blogger og la deg inspirere.
+</p>
+
+@code {
+    [Inject] private NavigationManager Navigation { get; set; }
+    [Inject] private UserStateService UserStateService { get; set; }
+
+    private void GoToRegistrationPage()
+    {
+        Navigation.NavigateTo("/register");
+    }
+}
